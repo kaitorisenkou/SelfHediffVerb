@@ -25,7 +25,7 @@ namespace SelfHediffVerb
                 var props = ((VerbProperties_SelfHediff)verbProps);
                 var hediff = CasterPawn.health.AddHediff(props.hediffDef, CasterPawn.health.hediffSet.GetNotMissingParts(BodyPartHeight.Undefined, BodyPartDepth.Undefined, null, null).FirstOrFallback((BodyPartRecord p) => p.def == props.part, null));
                 var hediffComp_RemoveIfApparelDropped = hediff.TryGetComp<HediffComp_RemoveIfApparelDropped>();
-                if (hediffComp_RemoveIfApparelDropped != null && EquipmentSource != null)
+                if (hediffComp_RemoveIfApparelDropped != null && EquipmentSource != null && EquipmentSource is Apparel)
                     hediffComp_RemoveIfApparelDropped.wornApparel = (Apparel)this.EquipmentSource;
                 return true;
             }
