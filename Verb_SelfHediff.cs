@@ -19,7 +19,7 @@ namespace SelfHediffVerb
             if (CasterIsPawn) {
                 var compReloadable = base.ReloadableCompSource;
                 if(compReloadable!=null) {
-                    if (!compReloadable.CanBeUsed) return false;
+                    if (compReloadable.CanBeUsed) return false;
                     compReloadable.UsedOnce();
                 }
                 var props = ((VerbProperties_SelfHediff)verbProps);
