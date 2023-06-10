@@ -27,3 +27,4 @@ C:\Users\kaich\source\repos\SelfHediffVerb\SelfHediffVerb\obj\Release\SelfHediff
 C:\Users\kaich\source\repos\SelfHediffVerb\SelfHediffVerb\obj\Release\SelfHediffVerb.csproj.CopyComplete
 C:\Users\kaich\source\repos\SelfHediffVerb\SelfHediffVerb\obj\Release\SelfHediffVerb.dll
 C:\Users\kaich\source\repos\SelfHediffVerb\SelfHediffVerb\obj\Release\SelfHediffVerb.pdb
+C:\Users\kaich\source\repos\SelfHediffVerb\SelfHediffVerb\obj\Release\SelfHediffVerb.csprojAssemblyReference.cache
