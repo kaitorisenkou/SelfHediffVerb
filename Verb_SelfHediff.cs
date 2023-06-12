@@ -7,9 +7,7 @@ using System.Threading.Tasks;
 using Verse;
 using RimWorld;
 
-namespace SelfHediffVerb
-{
-    // Token: 0x020018AE RID: 6318
+namespace SelfHediffVerb {
     public class Verb_SelfHediff : Verb {
         protected override bool TryCastShot() {
             if (!(verbProps is VerbProperties_SelfHediff)) {
@@ -18,7 +16,7 @@ namespace SelfHediffVerb
             }
             if (CasterIsPawn) {
                 var compReloadable = base.ReloadableCompSource;
-                if(compReloadable!=null) {
+                if (compReloadable != null) {
                     if (!compReloadable.CanBeUsed) return false;
                     compReloadable.UsedOnce();
                 }
