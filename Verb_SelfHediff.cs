@@ -16,10 +16,12 @@ namespace SelfHediffVerb {
             }
             if (CasterIsPawn) {
                 var compReloadable = base.ReloadableCompSource;
-                if (compReloadable != null) {
-                    if (!compReloadable.CanBeUsed) return false;
-                    compReloadable.UsedOnce();
-                }
+                var compCooltime = EquipmentSource.TryGetComp<CompVerbWithCooltime>();
+                if ((compReloadable != null && !compReloadable.CanBeUsed) || (compCooltime != null && !compCooltime.CanBeUsed))
+                    return false;
+                compReloadable?.UsedOnce();
+                compCooltime?.UsedOnce();
+
                 var props = ((VerbProperties_SelfHediff)verbProps);
                 var hediff = CasterPawn.health.AddHediff(props.hediffDef, CasterPawn.health.hediffSet.GetNotMissingParts(BodyPartHeight.Undefined, BodyPartDepth.Undefined, null, null).FirstOrFallback((BodyPartRecord p) => p.def == props.part, null));
                 var hediffComp_RemoveIfApparelDropped = hediff.TryGetComp<HediffComp_RemoveIfApparelDropped>();
