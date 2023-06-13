@@ -17,8 +17,13 @@ namespace SelfHediffVerb {
             if (CasterIsPawn) {
                 var compReloadable = base.ReloadableCompSource;
                 var compCooltime = EquipmentSource.TryGetComp<CompVerbWithCooltime>();
-                if ((compReloadable != null && !compReloadable.CanBeUsed) || (compCooltime != null && !compCooltime.CanBeUsed))
+                if((compCooltime != null && !compCooltime.CanBeUsed)) {
+                    Messages.Message("SelfHediffVerb_CooltimeRemain".Translate(compCooltime.remainCooltimeTicks.ToStringSecondsFromTicks("F0")), MessageTypeDefOf.RejectInput, false);
                     return false;
+                }
+                if ((compReloadable != null && !compReloadable.CanBeUsed)) {
+                    return false;
+                }
                 compReloadable?.UsedOnce();
                 compCooltime?.UsedOnce();
 

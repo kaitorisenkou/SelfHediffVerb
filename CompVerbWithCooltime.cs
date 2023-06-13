@@ -10,7 +10,7 @@ using RimWorld;
 
 namespace SelfHediffVerb {
     public class CompVerbWithCooltime : ThingComp, IVerbOwner {
-        private int remainCooltimeTicks = -1;
+        public int remainCooltimeTicks = -1;
         public CompProperties_VerbWithCooltime PropsVWC => props as CompProperties_VerbWithCooltime;
 
         public override void CompTick() {
@@ -81,11 +81,15 @@ namespace SelfHediffVerb {
             }
             if (verb.verbProps.defaultProjectile != null) {
                 command_VerbTarget.icon = verb.verbProps.defaultProjectile.uiIcon;
+            } else {
+                command_VerbTarget.icon = gear.def.uiIcon;
             }
             if (!this.Wearer.IsColonistPlayerControlled) {
                 command_VerbTarget.Disable("CannotOrderNonControlled".Translate());
             } else if (verb.verbProps.violent && this.Wearer.WorkTagIsDisabled(WorkTags.Violent)) {
                 command_VerbTarget.Disable("IsIncapableOfViolenceLower".Translate(this.Wearer.LabelShort, this.Wearer).CapitalizeFirst() + ".");
+            } else if (!this.CanBeUsed) {
+                command_VerbTarget.Disable("SelfHediffVerb_CooltimeRemain".Translate(remainCooltimeTicks.ToStringSecondsFromTicks("F0")));
             }
             return command_VerbTarget;
         }
@@ -94,21 +98,21 @@ namespace SelfHediffVerb {
             base.PostExposeData();
             Scribe_Values.Look<int>(ref this.remainCooltimeTicks, "remainCooltimeTicks", -1, false);
         }
-
+        /*
         public override string CompInspectStringExtra() {
             var result = base.CompInspectStringExtra();
             if (this.remainCooltimeTicks >= 0) {
                 result += "Cooltime: " + remainCooltimeTicks.ToStringSecondsFromTicks();
             }
             return result;
-        }
+        }*/
 
         public string UniqueVerbOwnerID() {
-            throw new NotImplementedException();
+            return "Cooltime_" + this.parent.ThingID;
         }
 
         public bool VerbsStillUsableBy(Pawn p) {
-            throw new NotImplementedException();
+            return this.Wearer == p;
         }
     }
     public class CompProperties_VerbWithCooltime : CompProperties {
@@ -116,6 +120,15 @@ namespace SelfHediffVerb {
 
         public CompProperties_VerbWithCooltime() {
             this.compClass = typeof(CompVerbWithCooltime);
+        }
+
+        public override IEnumerable<string> ConfigErrors(ThingDef parentDef) {
+            foreach (string text in base.ConfigErrors(parentDef)) {
+                yield return text;
+            }
+            if (parentDef.tickerType != TickerType.Normal) {
+                yield return parentDef.defName+"'s <tickerType> must be Normal";
+            }
         }
     }
 }
