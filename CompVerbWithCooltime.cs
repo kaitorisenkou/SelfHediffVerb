@@ -77,9 +77,15 @@ namespace SelfHediffVerb {
             command_VerbTarget.verb = verb;
             var verbProp = verb.verbProps;
             if (verbProp.label != null) {
+                command_VerbTarget.defaultLabel = verbProp.label;
+            }
+            if (gear.def != null) {
                 command_VerbTarget.defaultDesc = gear.def.description;
             }
-            if (verb.verbProps.defaultProjectile != null) {
+            if (verbProp.commandIcon != null) {
+                command_VerbTarget.icon = ContentFinder<Texture2D>.Get(verb.verbProps.commandIcon);
+            } else
+            if (verbProp.defaultProjectile != null) {
                 command_VerbTarget.icon = verb.verbProps.defaultProjectile.uiIcon;
             } else {
                 command_VerbTarget.icon = gear.def.uiIcon;
