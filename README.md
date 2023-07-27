@@ -10,6 +10,7 @@ class libraly for Rimworld
         
         <verbClass>SelfHediffVerb.Verb_SelfHediff</verbClass>
         <hediffDef>AmbrosiaHigh</hediffDef>
+        <inDanger>true</inDanger>    <!--optional-->
         
         <hasStandardCommand>true</hasStandardCommand>
         <targetable>false</targetable>
