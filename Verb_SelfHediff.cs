@@ -21,7 +21,8 @@ namespace SelfHediffVerb {
                     Messages.Message("SelfHediffVerb_CooltimeRemain".Translate(compCooltime.remainCooltimeTicks.ToStringSecondsFromTicks("F0")), MessageTypeDefOf.RejectInput, false);
                     return false;
                 }
-                if ((compReloadable != null && !compReloadable.CanBeUsed)) {
+                string reason;
+                if ((compReloadable != null && !compReloadable.CanBeUsed(out reason))) {
                     return false;
                 }
                 compReloadable?.UsedOnce();

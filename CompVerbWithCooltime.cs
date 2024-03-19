@@ -59,7 +59,11 @@ namespace SelfHediffVerb {
             foreach (Gizmo gizmo in base.CompGetWornGizmosExtra()) {
                 yield return gizmo;
             }
+#if v15
+            if (parent.TryGetComp<CompApparelReloadable>() != null) yield break;
+#else
             if (parent.TryGetComp<CompReloadable>() != null) yield break;
+#endif
 
             ThingWithComps gear = this.parent;
             foreach (Verb verb in this.VerbTracker.AllVerbs) {
